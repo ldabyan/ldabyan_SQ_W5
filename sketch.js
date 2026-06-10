@@ -3,12 +3,12 @@
 const SPRITE = {
   frameWidth:  93,
   frameHeight: 95,
-  numFrames:   9,
+  numFrames:   3,
   animSpeed:   8,
   scale:       0.6,
   rows: {
     down:  0,
-    up:    3,
+    up:    0,
     right: 1,
     left:  2,
   },
