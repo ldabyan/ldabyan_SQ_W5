@@ -1,31 +1,31 @@
 // Week 5 Side Quest — Super Mario Bros Maze
 
 const SPRITE = {
-  frameWidth:  75,
-  frameHeight: 150,
-  numFrames:   4,
-  animSpeed:   20,
-  scale:       0.5,
+  frameWidth:  93,
+  frameHeight: 95,
+  numFrames:   9,
+  animSpeed:   8,
+  scale:       0.6,
   rows: {
     down:  0,
-    up:    1,
-    right: 2,
-    left:  3,
+    up:    3,
+    right: 1,
+    left:  2,
   },
   offsets: {
-    down:  { x: 0, y: 0  },
-    up:    { x: 0, y: 0  },
-    right: { x: 0, y: 10 },
-    left:  { x: 0, y: 20 },
+    down:  { x: 0, y: 0 },
+    up:    { x: 0, y: 0 },
+    right: { x: 0, y: 0 },
+    left:  { x: 0, y: 0 },
   },
 };
 
 const COIN = {
-  frameWidth:  32,
-  frameHeight: 32,
-  numFrames:   8,
+  frameWidth:  73,
+  frameHeight: 99,
+  numFrames:   7,
   animSpeed:   6,
-  scale:       1.5,
+  scale:       0.5,
 };
 
 const TILE_SIZE = 50;
@@ -43,13 +43,12 @@ const MAZE = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
-// Mario-themed tile colours
 const TILE_COLORS = {
-  0: [94,  148, 68 ], // floor — mario grass green
-  1: [139, 90,  43 ], // wall  — mario brown brick
-  2: [94,  148, 68 ], // start — same as floor
-  3: [94,  148, 68 ], // coin  — same as floor
-  4: [60,  100, 200], // exit  — blue pipe colour
+  0: [94,  148, 68 ],
+  1: [139, 90,  43 ],
+  2: [94,  148, 68 ],
+  3: [94,  148, 68 ],
+  4: [60,  100, 200],
 };
 
 let player = {
@@ -70,10 +69,12 @@ let gameWon = false;
 
 let characterSheet;
 let coinSheet;
+let bgImage;
 
 function preload() {
-  characterSheet = loadImage("assets/images/walking.png");
-  coinSheet      = loadImage("assets/images/coin_gold.png");
+  characterSheet = loadImage("assets/images/mario.png");
+  coinSheet      = loadImage("assets/images/mario_coin.png");
+  bgImage        = loadImage("assets/images/mario_bg.png");
 }
 
 function setup() {
@@ -101,7 +102,9 @@ function setup() {
 }
 
 function draw() {
-  background(20);
+  imageMode(CORNER);
+  image(bgImage, 0, 0, width, height);
+  imageMode(CENTER);
   drawMaze();
   updateCoins();
   drawCoins();
@@ -125,9 +128,9 @@ function drawMaze() {
 
       if (tile === 4) {
         if (coinsCollected === coins.length) {
-          fill(255, 50, 50); // red pipe — exit open
+          fill(255, 50, 50);
         } else {
-          fill(60, 100, 200); // blue pipe — locked
+          fill(60, 100, 200);
         }
       } else {
         let c = TILE_COLORS[tile];
@@ -136,7 +139,6 @@ function drawMaze() {
 
       rect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
-      // Draw brick lines on wall tiles
       if (tile === 1) {
         stroke(100, 60, 20);
         strokeWeight(1);
