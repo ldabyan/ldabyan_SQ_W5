@@ -1,22 +1,22 @@
 // Week 5 Side Quest — Super Mario Bros Maze
 
 const SPRITE = {
-  frameWidth:  93,
-  frameHeight: 95,
-  numFrames:   3,
-  animSpeed:   8,
-  scale:       0.6,
+  frameWidth:  75,
+  frameHeight: 150,
+  numFrames:   4,
+  animSpeed:   20,
+  scale:       0.5,
   rows: {
     down:  0,
-    up:    0,
-    right: 1,
-    left:  2,
+    up:    1,
+    right: 2,
+    left:  3,
   },
   offsets: {
-    down:  { x: 0, y: 0 },
-    up:    { x: 0, y: 0 },
-    right: { x: 0, y: 0 },
-    left:  { x: 0, y: 0 },
+    down:  { x: 0, y: 0  },
+    up:    { x: 0, y: 0  },
+    right: { x: 0, y: 10 },
+    left:  { x: 0, y: 20 },
   },
 };
 
@@ -69,12 +69,10 @@ let gameWon = false;
 
 let characterSheet;
 let coinSheet;
-let bgImage;
 
 function preload() {
-  characterSheet = loadImage("assets/images/mario.png");
+  characterSheet = loadImage("assets/images/walking.png");
   coinSheet      = loadImage("assets/images/coin_gold.png");
-  bgImage        = loadImage("assets/images/mario_bg.png");
 }
 
 function setup() {
@@ -102,9 +100,7 @@ function setup() {
 }
 
 function draw() {
-  imageMode(CORNER);
-  image(bgImage, 0, 0, width, height);
-  imageMode(CENTER);
+  background(92, 148, 252);
   drawMaze();
   updateCoins();
   drawCoins();
@@ -128,9 +124,9 @@ function drawMaze() {
 
       if (tile === 4) {
         if (coinsCollected === coins.length) {
-          fill(255, 50, 50);
+          fill(0, 200, 0);
         } else {
-          fill(60, 100, 200);
+          fill(0, 120, 0);
         }
       } else {
         let c = TILE_COLORS[tile];
@@ -141,12 +137,22 @@ function drawMaze() {
 
       if (tile === 1) {
         stroke(100, 60, 20);
-        strokeWeight(1);
+        strokeWeight(2);
         line(col * TILE_SIZE, row * TILE_SIZE + TILE_SIZE / 2,
              col * TILE_SIZE + TILE_SIZE, row * TILE_SIZE + TILE_SIZE / 2);
         line(col * TILE_SIZE + TILE_SIZE / 2, row * TILE_SIZE,
              col * TILE_SIZE + TILE_SIZE / 2, row * TILE_SIZE + TILE_SIZE);
         noStroke();
+      }
+
+      // Draw ? block on exit tile
+      if (tile === 4) {
+        fill(255, 200, 0);
+        noStroke();
+        textAlign(CENTER, CENTER);
+        textSize(24);
+        textFont("monospace");
+        text("?", col * TILE_SIZE + TILE_SIZE / 2, row * TILE_SIZE + TILE_SIZE / 2);
       }
     }
   }
@@ -275,8 +281,8 @@ function drawHUD() {
   text("COINS: " + coinsCollected + " / " + coins.length, 10, 20);
 
   if (coinsCollected === coins.length) {
-    fill(255, 50, 50);
-    text("Find the RED PIPE to escape!", 10, 40);
+    fill(0, 220, 0);
+    text("Reach the GREEN PIPE to escape!", 10, 40);
   }
 }
 
