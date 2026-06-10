@@ -21,11 +21,11 @@ const SPRITE = {
 };
 
 const COIN = {
-  frameWidth:  73,
-  frameHeight: 99,
-  numFrames:   7,
+  frameWidth:  32,
+  frameHeight: 32,
+  numFrames:   8,
   animSpeed:   6,
-  scale:       0.5,
+  scale:       1.5,
 };
 
 const TILE_SIZE = 50;
@@ -73,7 +73,7 @@ let bgImage;
 
 function preload() {
   characterSheet = loadImage("assets/images/mario.png");
-  coinSheet      = loadImage("assets/images/mario_coin.png");
+  coinSheet      = loadImage("assets/images/coin_gold.png");
   bgImage        = loadImage("assets/images/mario_bg.png");
 }
 
