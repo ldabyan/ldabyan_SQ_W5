@@ -44,11 +44,11 @@ const MAZE = [
 ];
 
 const TILE_COLORS = {
-  0: [94,  148, 68 ],
-  1: [139, 90,  43 ],
-  2: [94,  148, 68 ],
-  3: [94,  148, 68 ],
-  4: [60,  100, 200],
+  0: [255, 220, 0  ],
+  1: [30,  80,  180],
+  2: [255, 220, 0  ],
+  3: [255, 220, 0  ],
+  4: [0,   150, 0  ],
 };
 
 let player = {
@@ -100,7 +100,7 @@ function setup() {
 }
 
 function draw() {
-  background(92, 148, 252);
+  background(10, 30, 100);
   drawMaze();
   updateCoins();
   drawCoins();
@@ -124,9 +124,9 @@ function drawMaze() {
 
       if (tile === 4) {
         if (coinsCollected === coins.length) {
-          fill(0, 200, 0);
+          fill(0, 220, 0);
         } else {
-          fill(0, 120, 0);
+          fill(0, 150, 0);
         }
       } else {
         let c = TILE_COLORS[tile];
@@ -136,7 +136,7 @@ function drawMaze() {
       rect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
       if (tile === 1) {
-        stroke(100, 60, 20);
+        stroke(20, 50, 140);
         strokeWeight(2);
         line(col * TILE_SIZE, row * TILE_SIZE + TILE_SIZE / 2,
              col * TILE_SIZE + TILE_SIZE, row * TILE_SIZE + TILE_SIZE / 2);
@@ -145,9 +145,8 @@ function drawMaze() {
         noStroke();
       }
 
-      // Draw ? block on exit tile
       if (tile === 4) {
-        fill(255, 200, 0);
+        fill(255, 220, 0);
         noStroke();
         textAlign(CENTER, CENTER);
         textSize(24);
